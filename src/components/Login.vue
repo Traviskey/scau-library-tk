@@ -75,6 +75,10 @@
     <div class="footer2">
       <p>
         ©2023-10 By 天启安康
+        <br>
+        客服电话:{{system.tele}}
+        <br>
+        邮编:{{system.postcode}}
       </p>
     </div>
   </div>
@@ -90,15 +94,20 @@ export default {
         username: "天启安康",
         password: "123456",
       },
+      system:{
+        tele:123,
+        postcode: Number,
+        webname:""
+      },
 
       //登录表单规则的验证对象
       loginFormRules: {
         username: [
           { required: true, message: "用户名不能为空", trigger: "blur" },
           {
-            min: 3,
+            min: 2,
             max: 20,
-            message: "长度在 3 到 20 个字符",
+            message: "长度在 2 到 20 个字符",
             trigger: "blur",
           },
         ],
@@ -122,9 +131,16 @@ export default {
       },
     };
   },
+  async created() {
+    this.getsystem();
+  },
   methods: {
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
+    },
+    async  getsystem(){
+      const {data: res1} = await this.$http.get("admin/getsystem");
+      this.system = res1.data;
     },
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {

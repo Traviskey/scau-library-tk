@@ -15,7 +15,6 @@ const routes = [
         }
       },
       { path: '/search', component: () => import('@/components/User/Search.vue') },
-      {path: '/category', component: () => import('@/components/User/Category.vue')} ,
       { path: '/cart', component: () => import('@/components/User/Cart.vue') },
       { path: '/collection', component: () => import('@/components/User/Collection.vue') },
       { path: '/information', component: () => import('@/components/User/Information.vue') },
@@ -34,29 +33,17 @@ const routes = [
       { path: '/tinformation', component: () => import('@/components/Traveller/Information.vue') },
     ]
   },
-  {
-    path: '/homemange', component: () => import('@/components/Home/HomeManage.vue'),
-    children: [
-      { path: '/borrowbook', component: () => import('@/components/BookManage/BorrowBook.vue') },
-      { path: '/returnbook', component: () => import('@/components/BookManage/ReturnBook.vue') },
-      { path: '/borrowstatement', component: () => import('@/components/BookManage/BorrowStatement.vue') },
-      { path: '/returnstatement', component: () => import('@/components/BookManage/ReturnStatement.vue') },
-      { path: '/noticemanage', component: () => import('@/components/BookManage/NoticeManage.vue') },
-      { path: '/bookexpire', name: "bookexpire", component: () => import('@/components/BookManage/BookExpire.vue') }
-    ]
-  },
   { path: '/loginadmin', component: () => import('@/components/Admin/LoginAdmin.vue') },
   {
     path: '/homeadmin', component: () => import('@/components/Home/HomeAdmin.vue'),
     children: [
       { path: '/bookmanage', component: () => import('@/components/Admin/BookManage.vue') },
       { path: '/booktype', component: () => import('@/components/Admin/BookType.vue') },
-      { path: '/statementmanage', component: () => import('@/components/Admin/StatementManage.vue') },
-      { path: '/statementsearch', component: () => import('@/components/Admin/StatementSearch.vue') },
-      { path: '/statementrulemanage', component: () => import('@/components/Admin/StatementRuleManage.vue') },
+      { path: '/orderhandle', component: () => import('@/components/Admin/OrderHandle.vue') },
+        //用户管理
       { path: '/bookadminmanage', component: () => import('@/components/Admin/BookAdminManage.vue') },
-      { path: '/adminmanage', component: () => import('@/components/Admin/AdminManage.vue') },
-      {path:'/intelligent_analysis',component:()=>import('@/components/Admin/IntelligentAnalysis.vue')}
+        //系统信息
+      { path: '/adminmanage', component: () => import('@/components/Admin/AdminManage.vue') }
     ]
   },
   {

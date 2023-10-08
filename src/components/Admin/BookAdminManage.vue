@@ -3,14 +3,14 @@
     <!-- 面包屑导航区域 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>图书管理员管理</el-breadcrumb-item>
+      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card shadow="always">
       <!-- 搜索内容和导出区域 -->
       <el-row>
         <el-col :span="4">
           <el-button type="primary" @click="showAddDialog()">
-            <i class="el-icon-plus"></i> 添加管理员</el-button
+            <i class="el-icon-plus"></i> 添加用户</el-button
           >
         </el-col>
         <el-col :span="2" style="float: right">
@@ -56,14 +56,14 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"
       >
-        <el-table-column prop="bookAdminId" label="ID" sortable>
+        <el-table-column prop="userId" label="ID" sortable>
         </el-table-column>
-        <el-table-column prop="username" label="账号"> </el-table-column>
-        <el-table-column prop="bookAdminName" label="姓名"> </el-table-column>
-        <el-table-column prop="email" label="邮箱"> </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column prop="username" label="账号名"> </el-table-column>
+        <el-table-column prop="cardName" label="收货人"> </el-table-column>
+        <el-table-column prop="address" label="地址"> </el-table-column>
+<!--        <el-table-column label="操作">
           <template slot-scope="scope">
-            <!-- 修改按钮 -->
+            &lt;!&ndash; 修改按钮 &ndash;&gt;
             <el-tooltip
               effect="dark"
               content="修改"
@@ -78,7 +78,7 @@
               ></el-button
             ></el-tooltip>
 
-            <!-- 删除按钮 -->
+            &lt;!&ndash; 删除按钮 &ndash;&gt;
             <el-tooltip
               effect="dark"
               content="删除"
@@ -93,7 +93,7 @@
               ></el-button>
             </el-tooltip>
           </template>
-        </el-table-column>
+        </el-table-column>-->
       </el-table>
       <!-- 分页查询区域 -->
       <el-pagination
@@ -107,69 +107,38 @@
       >
       </el-pagination>
       <!-- 修改公告的对话框 -->
+
+      <!-- 添加用户的对话框 -->
       <el-dialog
-        title="修改管理员"
-        :visible.sync="editDialogVisible"
-        width="50%"
-        @close="editDialogClosed"
-      >
-        <el-form
-          :model="editForm"
-          ref="editFormRef"
-          :rules="editFormRules"
-          label-width="100px"
-        >
-          <el-form-item label="姓名" prop="bookAdminName">
-            <el-input v-model="editForm.bookAdminName"></el-input>
-          </el-form-item>
-          <el-form-item label="账号" prop="username">
-            <el-input v-model="editForm.username"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input
-              v-model="editForm.password"
-              type="password"
-              show-password
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="editForm.email"></el-input>
-          </el-form-item>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="editDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="updateBookAdmin">确 定</el-button>
-        </span>
-      </el-dialog>
-      <!-- 添加管理员的对话框 -->
-      <el-dialog
-        title="添加管理员"
+        title="添加用户"
         :visible.sync="addDialogVisible"
         width="50%"
         @close="addDialogClosed"
       >
-        <el-form
-          :model="addForm"
-          ref="addFormRef"
-          :rules="addFormRules"
-          label-width="100px"
-        >
-          <el-form-item label="姓名" prop="bookAdminName">
-            <el-input v-model="addForm.bookAdminName"></el-input>
-          </el-form-item>
-          <el-form-item label="账号" prop="username">
-            <el-input v-model="addForm.username"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="addForm.password"></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="addForm.email"></el-input>
-          </el-form-item>
-        </el-form>
+         <el-form
+          :model="editForm"
+          ref="editFormRef"
+          :rules="editFormRules"
+          label-width="120px"
+      >
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="editForm.username"  placeholder="请输入用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="editForm.password"  placeholder="请输入用户名" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="收货人" prop="cardName">
+          <el-input v-model="editForm.cardName"  placeholder="请输入收货人"></el-input>
+        </el-form-item>
+        <el-form-item label="收货地址" prop="address">
+          <el-input v-model="editForm.address"  placeholder="请输入收货地址"></el-input>
+        </el-form-item>
+      </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="addDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addBookAdmin">添加管理员</el-button>
+          <el-button type="primary" @click="adduser"
+          >确 定</el-button
+          >
         </span>
       </el-dialog>
     </el-card>
@@ -185,14 +154,14 @@ export default {
       editForm: {
         username: "",
         password: "",
-        email: "",
-        bookAdminName: "",
+        cardName: "",
+        address: "",
       },
       editFormRules: {
         username: [
           { required: true, message: "请输入账号", trigger: "blur" },
           {
-            min: 5,
+            min: 2,
             max: 30,
             message: "长度在5到30个字符",
             trigger: "blur",
@@ -207,22 +176,16 @@ export default {
             trigger: "blur",
           },
         ],
-        email: [
+        cardName: [
           {
-            required: true,
-            message: "请输入正确的邮箱",
-            trigger: "blur",
-            type: "email",
-          },
-          {
-            min: 6,
+            min: 2,
             max: 50,
             message: "长度在6到50个字符",
             trigger: "blur",
           },
         ],
-        bookAdminName: [
-          { required: true, message: "请输入姓名", trigger: "blur" },
+        address: [
+          { required: true, message: "请输入地址", trigger: "blur" },
         ],
       },
       addDialogVisible: false,
@@ -275,12 +238,6 @@ export default {
       },
       total: 0,
       title: "图书管理员",
-      json_fields: {
-        图书管理员编号: "bookAdminId",
-        用户名: "username",
-        姓名: "bookAdminName",
-        邮箱: "email",
-      },
       loading:true
     };
   },
@@ -353,7 +310,7 @@ export default {
     async getBookAdminList() {
       this.loading = true;
       const { data: res } = await this.$http.post(
-        "admin/get_bookadminlist",
+        "admin/get_bookuserlist",
         this.queryInfo
       );
       // console.log(res);
@@ -366,7 +323,7 @@ export default {
         duration: 1000,
       });
       this.tableData = res.data.records;
-       this.total = parseInt(res.data.total);
+      this.total = parseInt(res.data.total);
       this.loading = false;
     },
     async addBookAdmin() {
@@ -415,6 +372,23 @@ export default {
         // 退出全屏模式
         document.exitFullscreen();
     }
+    },
+    async adduser(){
+
+      const {data:res} = await this.$http.post('user/register',{
+        password:this.editForm.password,
+        username:this.editForm.username,
+        cardName:this.editForm.cardName,
+        address:this.editForm.address,
+      })
+      if(res.status !== 200){
+        return this.$message.error(res.msg);
+      }
+      this.$message.success(res.msg)
+      this.editDialogVisible = false;
+      this.$refs.editFormRef.resetFields();
+      window.sessionStorage.clear();
+      this.$router.push("/login");
     }
   },
   created() {

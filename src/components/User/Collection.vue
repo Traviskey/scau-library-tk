@@ -69,7 +69,7 @@
           <template slot-scope="scope">
             <el-button
                 size="mini"
-                @click="handleEdit(scope.$index, scope.row)">移除</el-button>
+                @click="handleMove(scope.row)">移除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -109,6 +109,11 @@ export default {
         描述: "bookDescription",
       },
       loading: true,
+      CollectionInfo: {
+        bookNumber:1,
+        bookName: "",
+        userId: 1,
+      },
     };
   },
   created() {
@@ -150,6 +155,37 @@ export default {
       this.loading = false;
       this.tableData = res.data.records;
       this.total = parseInt(res.data.total);
+    },
+    handleMove(row) {
+      const {bookName,bookNumber} = row;
+      this.activePath = window.sessionStorage.getItem("activePath");
+      // console.log(this.activePath)
+      // 先获取sessionStorage中的id`
+      const stringId = window.sessionStorage.getItem("userId");
+      const id = parseInt(stringId);
+
+      this.CollectionInfo.bookName = bookName;
+      this.CollectionInfo.bookNumber = bookNumber;
+      this.CollectionInfo.userId = id;
+      this.handleCollectionMove();
+    },
+    async handleCollectionMove() {
+      this.loading = true;
+      const { data: res } = await this.$http.post(
+          "user/collection_delete",
+          this.CollectionInfo
+      );
+      if (res.status !== 200) {
+        this.loading = false;
+        return this.$message.error(res.msg);
+      }
+      this.$message.success({
+        message: res.msg,
+        duration: 1000,
+      });
+      this.loading = false;
+
+      this.searchCollectionByPage();
     },
     downLoad() {
       this.getPdf(this.title); //参数是下载的pdf文件名

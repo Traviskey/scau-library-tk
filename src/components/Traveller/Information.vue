@@ -14,63 +14,6 @@
         答：“当我还是个孩子的时候，我吃过很多食物，现在已经记不起来吃过什么了。但可以肯定的是，它们中的一部分已经长成为我的骨头和肉。
       </p>
     </div>
-    <div class="information_banner"
-         v-loading="loading"
-         element-loading-text="拼命加载中"
-         element-loading-spinner="el-icon-loading"
-         element-loading-background="rgba(0, 0, 0, 0.8)">
-      <div class="information_banner_left" >
-        <div class="banner_left_main" v-if="show">
-          <div class="number">
-            <i class="el-icon-collection-tag"></i> 用户账号:
-            {{ this.user.cardNumber }}
-          </div>
-          <div class="name">
-            <i class="iconfont icon-gerenxinxi"></i> 用户名称:
-            {{ this.user. username}}
-          </div>
-          <div class="rule">
-            <i class="iconfont icon-guizeshezhi"></i> 收货人姓名:
-            {{ this.user.cardName }}
-          </div>
-          <div class="status">
-            <i class="el-icon-refresh"></i> 收货地址:
-            {{ this.user.address }}
-          </div>
-        </div>
-      </div>
-      <div class="information_banner_right">
-        <el-button type="primary" class="changePWD" @click="showEditDialog"  v-if="show"
-        >修改密码</el-button
-        >
-      </div>
-      <el-dialog
-          title="修改密码"
-          :visible.sync="editDialogVisible"
-          width="50%"
-          @close="editDialogClosed"
-      >
-        <el-form
-            :model="editForm"
-            ref="editFormRef"
-            :rules="editFormRules"
-            label-width="120px"
-        >
-          <el-form-item label="新密码" prop="password">
-            <el-input v-model="editForm.password" type="password" placeholder="请输入新密码"></el-input>
-          </el-form-item>
-          <el-form-item label="新密码" prop="confirmPassword">
-            <el-input v-model="editForm.confirmPassword" type="password" placeholder="请再次输入新密码"></el-input>
-          </el-form-item>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="editDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="changePassword"
-          >确 定</el-button
-          >
-        </span>
-      </el-dialog>
-    </div>
   </div>
 </template>
 

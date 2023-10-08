@@ -64,7 +64,13 @@
       </span>
     </div>
     <div class="footer2">
-      ©2023-10 By 天启安康
+      <p>
+        ©2023-10 By 天启安康
+        <br>
+        客服电话:{{system.tele}}
+        <br>
+        邮编:{{system.postcode}}
+      </p>
     </div>
   </div>
 </template>
@@ -79,6 +85,11 @@ export default {
       loginForm: {
         username: "root",
         password: "123456",
+      },
+      system:{
+        tele:123,
+        postcode: Number,
+        webname:""
       },
       //登录表单规则的验证对象
       loginFormRules: {
@@ -104,7 +115,14 @@ export default {
       loginLoading: false
     };
   },
+  async created() {
+    this.getsystem();
+  },
   methods: {
+    async  getsystem(){
+      const {data: res1} = await this.$http.get("admin/getsystem");
+      this.system = res1.data;
+    },
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },

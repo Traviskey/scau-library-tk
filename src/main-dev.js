@@ -8,7 +8,7 @@ import './plugins/element.js'
 import VueParticles from 'vue-particles'
 //引入全局样式表
 import './assets/css/global.css'
-//引入图书管理系统的图标和字体库
+//引入图书系统的图标和字体库
 import './assets/fonts/iconfont.css'
 
 // 引入swiper的样式

@@ -66,7 +66,7 @@
                 type="primary"
                 icon="el-icon-edit"
                 size="mini"
-                @click="showEditDialog(scope.row.typeId)"
+                @click="showEditDialog(scope.row.bookTypeNumber)"
               ></el-button
             ></el-tooltip>
 
@@ -112,10 +112,10 @@
           label-width="120px"
         >
           <el-form-item label="分类名" prop="typeName">
-            <el-input v-model="editForm.typeName"></el-input>
+            <el-input v-model="editForm.bookType"></el-input>
           </el-form-item>
           <el-form-item label="分类描述" prop="typeContent">
-            <el-input v-model="editForm.typeContent" type="textarea"></el-input>
+            <el-input v-model="editForm.bookTypeDescription" type="textarea"></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -168,8 +168,9 @@ export default {
 
       editDialogVisible: false,
       editForm: {
-        typeName: "",
-        typeContent: "",
+        bookType: "",
+        bookTypeDescription: "",
+        bookTypeNumber: "",
       },
       editFormRules: {
         typeName: [
@@ -317,7 +318,6 @@ export default {
     },
     async updateBookType(){
       const {data:res} = await this.$http.post('admin/update_booktype',this.editForm)
-      console.log(res);
       if (res.status !== 200) {
         return this.$message.error(res.msg);
       }
